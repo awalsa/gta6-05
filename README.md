@@ -1,8 +1,8 @@
 # ISLA BRASA 3D
 
-[![ISLA BRASA 3D](https://make.fun/badge/awalsa/gta6-05.svg)](https://make.fun/bounty/gta6-01)
-[![Rank](https://make.fun/badge/awalsa/gta6-05/rank.svg)](https://make.fun/bounty/gta6-01)
-[![Reward](https://make.fun/badge/awalsa/gta6-05/reward.svg)](https://make.fun/bounty/gta6-01)
+[![make.fun · gta6-01](https://make.fun/badge/gta6-01.svg)](https://make.fun/bounty/gta6-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-01)
+[![rank](https://make.fun/badge/gta6-01/awalsa/gta6-05/rank.svg)](https://make.fun/bounty/gta6-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=gta6-01)
+[![reward](https://make.fun/badge/gta6-01/awalsa/gta6-05/reward.svg)](https://make.fun/bounty/gta6-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-01)
 
 A 3D third-person open-city crime game for the [make.fun GTA 6 bounty](https://make.fun/bounty/gta6-01), built with Three.js. Explore the sun-soaked island city of Isla Brasa on foot and by car, take on 12 story missions plus a 3-part heist, outrun the police as your wanted level climbs, and build respect from Nobody to Legend.
 
