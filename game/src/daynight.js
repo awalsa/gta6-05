@@ -117,6 +117,13 @@ export function update(dt, ctx) {
   }
   if (ctx.scene.fog) ctx.scene.fog.color.copy(sky);
 
+  // Drive the sky dome: the visible sky is the world's gradient dome, not
+  // scene.background (the dome covers it). Without this call the dome
+  // stays day-blue all night even though the module reports isNight.
+  if (ctx.world && typeof ctx.world.setNightFactor === 'function') {
+    ctx.world.setNightFactor(Math.max(0, Math.min(1, (1 - sunElev) / 2)));
+  }
+
   setLampAndWindowLights(night);
   ctx.state.isNight = night;
 }

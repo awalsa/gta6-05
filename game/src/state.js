@@ -17,6 +17,11 @@ export const DEFAULT_STATE = {
   currentCar: null,
   crew: {},
   missionsCompleted: [],
+  // Mission progress lives here: the missions module records finished mission
+  // ids in state.completedMissions, and loadGame only restores keys listed in
+  // DEFAULT_STATE — so this field must be declared here or progress is lost
+  // on reload (found by the round-5 verification harness).
+  completedMissions: [],
   currentMission: 0,
   day: 1,
   timeOfDay: 0.3,
@@ -35,6 +40,7 @@ state.weaponsOwned = [...DEFAULT_STATE.weaponsOwned];
 state.carsOwned = [...DEFAULT_STATE.carsOwned];
 state.crew = { ...DEFAULT_STATE.crew };
 state.missionsCompleted = [...DEFAULT_STATE.missionsCompleted];
+state.completedMissions = [...DEFAULT_STATE.completedMissions];
 state.outfitsOwned = [...DEFAULT_STATE.outfitsOwned];
 state.propertiesOwned = [...DEFAULT_STATE.propertiesOwned];
 state.playerPos = [...DEFAULT_STATE.playerPos];
@@ -65,6 +71,7 @@ export function loadGame() {
     if (Array.isArray(state.weaponsOwned)) state.weaponsOwned = [...state.weaponsOwned];
     if (Array.isArray(state.carsOwned)) state.carsOwned = [...state.carsOwned];
     if (Array.isArray(state.missionsCompleted)) state.missionsCompleted = [...state.missionsCompleted];
+    if (Array.isArray(state.completedMissions)) state.completedMissions = [...state.completedMissions];
     if (Array.isArray(state.outfitsOwned)) state.outfitsOwned = [...state.outfitsOwned];
     if (Array.isArray(state.propertiesOwned)) state.propertiesOwned = [...state.propertiesOwned];
     if (Array.isArray(state.playerPos)) state.playerPos = [...state.playerPos];

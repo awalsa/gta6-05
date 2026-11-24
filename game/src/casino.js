@@ -155,26 +155,8 @@ export function init(ctx) {
   return api;
 }
 
-function buildOverlay(ctx) {
-  let ov = document.getElementById('overlay-casino');
-  if (ov) {
-    // Reuse an existing overlay (guarded) and rebind the bits we need.
-    S.overlay = ov;
-    S.balanceEl = ov.querySelector('#casino-balance');
-    S.betEl = ov.querySelector('#casino-bet');
-    S.gameEl = ov.querySelector('#casino-game');
-    S.resultEl = ov.querySelector('#casino-result');
-    const closeBtn = ov.querySelector('#casino-close');
-    if (closeBtn) closeBtn.onclick = () => closeCasino(ctx);
-    renderGame(ctx);
-    return;
-  }
-
-  ov = document.createElement('div');
-  ov.id = 'overlay-casino';
-  ov.style.cssText = 'display:none;position:fixed;inset:0;background:rgba(10,5,25,0.85);z-index:10000;align-items:center;justify-content:center;font-family:sans-serif;';
-  ov.innerHTML =
-    '<div style="background:#1d1033;border:2px solid #d4af37;border-radius:12px;padding:20px 24px;width:min(560px,92vw);color:#f5e9c8;max-height:88vh;overflow:auto;">' +
+function casinoPanelHTML() {
+  return '<div style="background:#1d1033;border:2px solid #d4af37;border-radius:12px;padding:20px 24px;width:min(560px,92vw);color:#f5e9c8;max-height:88vh;overflow:auto;">' +
     '<h2 style="margin:0 0 4px;color:#ffd700;">🎰 Coral Room Casino</h2>' +
     '<div style="margin-bottom:10px;">Your cash: <b id="casino-balance" style="color:#7CFC00;">$0</b>' +
     '&nbsp;&nbsp;Bet: $<input id="casino-bet" type="number" value="100" min="10" step="10" style="width:90px;padding:4px;border-radius:4px;border:1px solid #d4af37;background:#2a1a4a;color:#fff;"></div>' +
@@ -187,7 +169,34 @@ function buildOverlay(ctx) {
     '<div id="casino-result" style="min-height:24px;margin:10px 0;font-weight:bold;"></div>' +
     '<button id="casino-close" style="width:100%;padding:10px;border-radius:6px;border:none;background:#d4af37;color:#1d1033;font-weight:bold;cursor:pointer;">Leave Casino (Esc)</button>' +
     '</div>';
-  document.body.appendChild(ov);
+}
+
+function buildOverlay(ctx) {
+  let ov = document.getElementById('overlay-casino');
+  if (ov && ov.querySelector('#casino-game')) {
+    // Reuse an existing overlay that already has the full casino UI.
+    S.overlay = ov;
+    S.balanceEl = ov.querySelector('#casino-balance');
+    S.betEl = ov.querySelector('#casino-bet');
+    S.gameEl = ov.querySelector('#casino-game');
+    S.resultEl = ov.querySelector('#casino-result');
+    const closeBtn = ov.querySelector('#casino-close');
+    if (closeBtn) closeBtn.onclick = () => closeCasino(ctx);
+    renderGame(ctx);
+    return;
+  }
+
+  // Build (or rebuild) the full casino UI. index.html ships a static
+  // #overlay-casino placeholder with only a #casino-items shell, so a
+  // reuse that finds no #casino-game would leave the casino empty and
+  // unplayable — rebuild the panel instead of trusting the placeholder.
+  if (!ov) {
+    ov = document.createElement('div');
+    ov.id = 'overlay-casino';
+    ov.style.cssText = 'display:none;position:fixed;inset:0;background:rgba(10,5,25,0.85);z-index:10000;align-items:center;justify-content:center;font-family:sans-serif;';
+    document.body.appendChild(ov);
+  }
+  ov.innerHTML = casinoPanelHTML();
   S.overlay = ov;
   S.balanceEl = ov.querySelector('#casino-balance');
   S.betEl = ov.querySelector('#casino-bet');
